@@ -11,13 +11,12 @@ RUN apt-get update && apt-get install -y \
 # Upgrade pip
 RUN pip3 install --upgrade pip
 
-# Install openai-whisper and setuptools-rust
-RUN pip install -U openai-whisper setuptools-rust
-
 # Create a directory to store downloaded videos
 RUN mkdir /app
 WORKDIR /app
 
+COPY requirements.txt /app/
+RUN pip install -r /app/requirements.txt
 # Copy the entrypoint script into the container
 COPY entrypoint.sh /app/
 

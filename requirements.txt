@@ -1,1 +1,7 @@
 pytube
+transformers
+torch
+pypdf
+langchain
+setuptools-rust
+openai-whisper

@@ -15,13 +15,19 @@ if len(sys.argv) != 2:
 # Extract the YouTube URL from the command-line argument
 youtube_url = sys.argv[1]
 
-ydl_opts = {
-    'format': 'mp4',
-    'concurrent_fragment_downloads': 7,
-    'writesubtitles': True,
-    'writeautomaticsub': True,
-    'outtmpl': 'videos/' + custom_title_filter('%(title)s.%(ext)s')
-}
+def get_video(youtube_url):
+    output_directory = 'videos/' + custom_title_filter('%(title)s.%(ext)s')
+    ydl_opts = {
+        'format': 'mp4',
+        'concurrent_fragment_downloads': 7,
+        'writesubtitles': True,
+        'writeautomaticsub': True,
+        'outtmpl': output_directory
+    }
 
-with YoutubeDL(ydl_opts) as ydl:
-    ydl.download([youtube_url])
+    with YoutubeDL(ydl_opts) as ydl:
+        ydl.download([youtube_url])
+
+    return output_directory
+
+get_video(youtube_url)
