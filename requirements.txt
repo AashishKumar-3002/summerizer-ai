@@ -1,4 +1,4 @@
-pytube
+yt-dlp
 transformers
 torch
 pypdf
