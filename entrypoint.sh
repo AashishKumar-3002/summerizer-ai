@@ -6,8 +6,15 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-# Extract the YouTube URL from the parameter
+# Check if a language name is provided as a parameter
+if [ -z "$2" ]; then
+    echo "Please provide the language name as a second parameter."
+    exit 1
+fi
+
+# Extract the YouTube URL and language name from the parameters
 YOUTUBE_URL="$1"
+LANGUAGE_NAME="$2"
 
 # Download the video using yt-dlp
 YT_OUTPUT=$(python3 src/video_downloader.py "$YOUTUBE_URL")
@@ -42,13 +49,11 @@ CLEAN_TITLE=$(echo "$TEMP_TITLE" | grep -oP "TITLE: \K.*\.mp4" | sed 's/\.mp4$//
 echo "The final Title is : $CLEAN_TITLE"
 mv "${PWD}/$DESTINATION.mp4" "${PWD}/videos/$CLEAN_TITLE.mp4"
 
-# # Run Whisper on the downloaded video
 # Change to the "videos" folder
 cd videos
 
-# Run Whisper on the downloaded video
-whisper "$CLEAN_TITLE.mp4" --language Japanese --task translate
+# Run Whisper on the downloaded video with the specified language
+whisper "$CLEAN_TITLE.mp4" --language "$LANGUAGE_NAME" --task translate
 
 # Return to the original directory
 cd -
-

@@ -12,11 +12,15 @@ RUN apt-get update && apt-get install -y \
 RUN pip3 install --upgrade pip
 
 # Create a directory to store downloaded videos
-RUN mkdir /app
+RUN mkdir -p /app/src
 WORKDIR /app
 
 COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
+
+# Copy the contents of the local src folder into the container /app/src
+COPY ./src /app/src
+
 # Copy the entrypoint script into the container
 COPY entrypoint.sh /app/
 
