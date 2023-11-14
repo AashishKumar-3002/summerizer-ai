@@ -1,9 +1,9 @@
 import whisper
 
-model = whisper.load_model("base")
+model = whisper.load_model("medium")
 
 # load audio and pad/trim it to fit 30 seconds
-audio = whisper.load_audio("videos/123.mp4")
+audio = whisper.load_audio("videos/11.mp4")
 audio = whisper.pad_or_trim(audio)
 
 # make log-Mel spectrogram and move to the same device as the model
@@ -14,7 +14,7 @@ _, probs = model.detect_language(mel)
 print(f"Detected language: {max(probs, key=probs.get)}")
 
 # decode the audio
-options = whisper.DecodingOptions()
+options = whisper.DecodingOptions(fp16=False)
 result = whisper.decode(model, mel, options)
 
 # print the recognized text
