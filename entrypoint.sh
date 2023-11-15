@@ -57,3 +57,5 @@ whisper "$CLEAN_TITLE.mp4" --language "$LANGUAGE_NAME" --task translate
 
 # Return to the original directory
 cd -
+
+python3 src/main.py "/app/videos/$CLEAN_TITLE"
